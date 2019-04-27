@@ -27,11 +27,11 @@ Graph newGraph(int noNodes) {
 
     /* allocate for each edge and initialise to 0 */
     for (int i = 0; i < noNodes; i++) {
-		new->edges[i] = calloc (noNodes, sizeof(int *));
-		if (new->edges[i] == NULL) err(EX_OSERR, "calloc");
-		for (int j = 0; j < noNodes; j++)
-			new->edges[i][j] = 0;
-	}
+        new->edges[i] = calloc (noNodes, sizeof(int *));
+        if (new->edges[i] == NULL) err(EX_OSERR, "calloc");
+        for (int j = 0; j < noNodes; j++)
+            new->edges[i][j] = 0;
+    }
     return new;
 }
 
@@ -42,13 +42,13 @@ int numVerticies(Graph g) {
 
 void insertEdge(Graph g, Vertex src, Vertex dest, int weight) {
     assert((g != NULL) && validV(g, src) && validV(g, dest));
-	if (g->edges[src][dest] == 0) g->edges[src][dest] = weight;
+    if (g->edges[src][dest] == 0) g->edges[src][dest] = weight;
 
 }
 
 void removeEdge(Graph g, Vertex src, Vertex dest) {
     assert((g != NULL) && validV(g, src) && validV(g, dest));
-	if (g->edges[src][dest] != 0) g->edges[src][dest] = 0;
+    if (g->edges[src][dest] != 0) g->edges[src][dest] = 0;
 }
 
 bool adjacent(Graph g, Vertex src, Vertex dest) {
@@ -90,7 +90,7 @@ AdjList inIncident(Graph g, Vertex v) {
             else
                 now = malloc(sizeof(adjListNode));
             now->w = i;
-            now->weight = g->edges[v][i];
+            now->weight = g->edges[i][v];
             now->next = NULL;
             if (first == NULL) first = now;
         }
@@ -99,10 +99,10 @@ AdjList inIncident(Graph g, Vertex v) {
 }
 void showGraph(Graph g) {
     assert (g != NULL);
-	if (g->nV == 0) {
-		puts ("Graph is empty");
-		return;
-	}
+    if (g->nV == 0) {
+        puts ("Graph is empty");
+        return;
+    }
     for (int i = 0; i < g->nV; i++) {
         for (int j = 0; j < g->nV; j++) {
             printf ("%d", g->edges[i][j]);
